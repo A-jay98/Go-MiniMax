@@ -14,6 +14,6 @@ Ferdowsi University of Mashhad
 
 Please read BaseGo/AUTHORS file to know all developers who contributed on this base code.
 
-Contact with us:
+Contact with TA:
 
 Hosein Mohebbi: hosein.mohebbi@mail.um.ac.ir
