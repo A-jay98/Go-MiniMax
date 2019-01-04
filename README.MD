@@ -12,6 +12,8 @@ Faculty of Engineering
 
 Ferdowsi University of Mashhad
 
+Please read BaseGo/AUTHORS file to know all developers who contributed on this base code.
+
 Contact with us:
 
 Hosein Mohebbi: hosein.mohebbi@mail.um.ac.ir
