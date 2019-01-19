@@ -1,5 +1,6 @@
 #include "board.h"
 #include "core.h"
+#include "MiniMax.h"
 
 
 /*
@@ -7,6 +8,7 @@
  */
 void reset() {
     // TODO: Your code for resetting your engine goes here...
+    prii();
 }
 
 /*
