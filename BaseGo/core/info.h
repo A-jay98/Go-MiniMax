@@ -1,2 +1,2 @@
 // TODO: Edit your team name
-#define TEAM_NAME "Base Go"
+#define TEAM_NAME "DoubleJ"
