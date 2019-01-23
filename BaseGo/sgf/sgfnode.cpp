@@ -822,7 +822,7 @@ sgf_write_header_reduced(SGFNode *root, int overwrite)
   if (overwrite || !sgfGetIntProperty(root, "DT", &dummy))
     sgfOverwriteProperty(root, "DT", str);
   if (overwrite || !sgfGetIntProperty(root, "AP", &dummy))
-    sgfOverwriteProperty(root, "AP", "GNU Go:"VERSION);
+    sgfOverwriteProperty(root, "AP", "GNU Go:" VERSION);
   sgfOverwriteProperty(root, "FF", "4");
 }
 

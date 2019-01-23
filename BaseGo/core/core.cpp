@@ -8,7 +8,7 @@
  */
 void reset() {
     // TODO: Your code for resetting your engine goes here...
-    prii();
+
 }
 
 /*
@@ -18,8 +18,7 @@ void reset() {
  * Otherwise you may return PASS_MOVE
  */
 int play(int color) {
-    int move = PASS_MOVE;
+    int move = MINIMAX_Decison(color);
     // TODO: Your code for generating a move goes here...
-    //return move;
     return move;
 }
