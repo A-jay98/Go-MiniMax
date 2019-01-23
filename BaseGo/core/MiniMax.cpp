@@ -6,8 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "Node/Node.h"
-#include "Node/MinNode.h"
-#include "Node/MaxNode.h"
+
 
 
 using namespace std;
@@ -22,7 +21,7 @@ int player;
 
 MOVE alpha_beta_search(int color){
     player = color;
-    Node *root = new MaxNode(0, 0);
+    Node *root = new Node(0, 0);
     return Max_value(root,color,UVAL_MIN,UVAL_MAX).second;
 
 
@@ -59,7 +58,7 @@ UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta){
         v = min(v, Max_value(a, (color == 1) ? 2 : 1 ,alpha,beta).first);
         beta = min(beta , v);
         if(beta <= alpha){
-            cerr<<"cutOff";
+//            cerr<<"cutOff"<<node->depth<<endl;
             popgo();
             break;
         }
@@ -77,13 +76,14 @@ pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta) {
     MOVE move;
     for(Node* a : node->genChildren(color)){
         trymove(a->move , color, NULL , 0);
-        if(int tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha,beta)>v){
+        UVAL tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha,beta);
+        if(tmp>v){
             v=tmp;
             move = a->move;
         }
         alpha = max(alpha , v);
         if(beta <= alpha){
-            cerr<<"cutOff";
+//            cerr<<"cutOff D"<<node->depth<<endl;
             popgo();
             break;
         }

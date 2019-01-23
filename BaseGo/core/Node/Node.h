@@ -7,11 +7,11 @@
 
 #include <vector>
 #include "board.h"
-
+#include <iostream>
 #define MIN_NODE_TYPE 0
 #define MAX_NODE_TYPE 1
 
-#define UITILITY_VAL int
+#define UITILITY_VAL std::pair<int,std::pair<int,int>>
 #define UVAL UITILITY_VAL
 #define MOVE int
 
@@ -29,11 +29,14 @@ public:
 
     std::vector<Node *> genChildren(int color);
 
-    virtual UVAL value() = 0;
 
     UVAL utility(int playerC);
 
+
+
 private:
+    std::pair<int, int> countLib(int color);
+    void dfs(int color, int i, int j, int &libCount, bool *mark);
 
 
 
