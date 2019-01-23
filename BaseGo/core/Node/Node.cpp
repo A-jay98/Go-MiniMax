@@ -15,19 +15,19 @@ Node::Node(int depth, int move) : depth(depth), move(move) {}
 vector<Node *> Node::genChildren(int color) {
     vector<Node *> childs;
     int move;
-    int minx = 2 ; int maxx =5;
-    int miny = 2 ; int maxy = 5;
-    for(int i = 0 ; i<board_size;i++) {
-        for (int j = 0; j < board_size; j++) {
-            if(BOARD(i,j) != 0){
-                minx = min(minx,i);
-                maxx = max(maxx,i);
-                miny = min(miny,j);
-                maxy = max(maxy,j);
-
-            }
-        }
-    }
+    int minx = 0 ; int maxx =board_size;
+    int miny = 0 ; int maxy = board_size;
+//    for(int i = 0 ; i<board_size;i++) {
+//        for (int j = 0; j < board_size; j++) {
+//            if(BOARD(i,j) != 0){
+//                minx = min(minx,i);
+//                maxx = max(maxx,i);
+//                miny = min(miny,j);
+//                maxy = max(maxy,j);
+//
+//            }
+//        }
+//    }
     for(int i = minx ; i<maxx;i++){
         for(int j = miny ;j<maxy;j++){
             move = POS(i,j);
@@ -73,3 +73,5 @@ UVAL Node::utility(int playerC) {
     return countA-countB;
 
 }
+
+Node::Node(int depth, int move, int alpha, int beta) : depth(depth), move(move), alpha(alpha), beta(beta) {}

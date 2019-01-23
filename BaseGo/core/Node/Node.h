@@ -21,6 +21,9 @@ public:
     int depth;
     int move;
     int type;
+    int alpha,beta;
+
+    Node(int depth, int move, int alpha, int beta);
 
     Node(int depth, int move);
 

@@ -20,8 +20,16 @@ void dumbfunc(){
 int player;
 
 
+MOVE alpha_beta_search(int color){
+    player = color;
+    Node *root = new MaxNode(0, 0);
+    return Max_value(root,color,UVAL_MIN,UVAL_MAX).second;
 
-MOVE MINIMAX_Decison(int color){
+
+}
+
+
+/*MOVE MINIMAX_Decison(int color){
     player = color;
     Node *root = new MaxNode(0, 0);
     vector<Node*> res = root->genChildren(color);
@@ -41,32 +49,49 @@ MOVE MINIMAX_Decison(int color){
 
 
     return move;
-}
+}*/
 
-UVAL Min_Value(Node *node, int color){
+UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta){
     if(node->depth == MAX_DEPTH) return node->utility(player);
     UVAL v = UVAL_MAX;
     for(Node* a : node->genChildren(color)){
         trymove(a->move , color, NULL , 0);
-        v = min(v, Max_value(a, (color == 1) ? 2 : 1 ));
+        v = min(v, Max_value(a, (color == 1) ? 2 : 1 ,alpha,beta).first);
+        beta = min(beta , v);
+        if(beta <= alpha){
+            cerr<<"cutOff";
+            popgo();
+            break;
+        }
         popgo();
     }
 
     return v;
 }
 
-UVAL Max_value(Node *node, int color) {
+pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta) {
     if(node->depth == MAX_DEPTH) {
-        return node->utility(player);
+        return {node->utility(player),node->move};
     }
     UVAL v = UVAL_MIN;
+    MOVE move;
     for(Node* a : node->genChildren(color)){
         trymove(a->move , color, NULL , 0);
-        v = max(v, Min_Value(a, (color == 2) ? 1 : 2 ));
+        if(int tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha,beta)>v){
+            v=tmp;
+            move = a->move;
+        }
+        alpha = max(alpha , v);
+        if(beta <= alpha){
+            cerr<<"cutOff";
+            popgo();
+            break;
+        }
+
         popgo();
     }
 
-    return v;
+    return {v,move};
 }
 
 

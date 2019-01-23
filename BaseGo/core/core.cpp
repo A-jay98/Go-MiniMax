@@ -18,7 +18,7 @@ void reset() {
  * Otherwise you may return PASS_MOVE
  */
 int play(int color) {
-    int move = MINIMAX_Decison(color);
+    int move = alpha_beta_search(color);
     // TODO: Your code for generating a move goes here...
     return move;
 }

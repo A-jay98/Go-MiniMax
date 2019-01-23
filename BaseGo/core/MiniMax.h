@@ -16,12 +16,12 @@
 
 
 
-MOVE MINIMAX_Decison(int color);
+//MOVE MINIMAX_Decison(int color);
 
-UVAL Max_value(Node *node, int color);
+std::pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta);
 
-UVAL Min_Value(Node *node, int color);
-
+UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta);
+MOVE alpha_beta_search(int color);
 
 
 
