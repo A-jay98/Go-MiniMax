@@ -15,28 +15,18 @@ vector<Node *> Node::genChildren(int color) {
     int move;
     int minx = 0 ; int maxx =board_size;
     int miny = 0 ; int maxy = board_size;
-//    for(int i = 0 ; i<board_size;i++) {
-//        for (int j = 0; j < board_size; j++) {
-//            if(BOARD(i,j) != 0){
-//                minx = min(minx,i);
-//                maxx = max(maxx,i);
-//                miny = min(miny,j);
-//                maxy = max(maxy,j);
-//
-//            }
-//        }
-//    }
     for(int i = minx ; i<maxx;i++){
         for(int j = miny ;j<maxy;j++){
             move = POS(i,j);
             if(is_legal(move,color) && !is_suicide(move,color)){
                 Node *node;
                 node = new Node(this->depth+1,move);
-
                 childs.push_back(node);
             }
         }
     }
+    Node *n = new Node(this->depth+1,PASS_MOVE);
+    childs.push_back(n);
     return childs;
 
 }

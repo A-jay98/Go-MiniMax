@@ -8,8 +8,7 @@
 #include <vector>
 #include "board.h"
 #include <iostream>
-#define MIN_NODE_TYPE 0
-#define MAX_NODE_TYPE 1
+
 
 #define UITILITY_VAL std::pair<int,std::pair<int,int>>
 #define UVAL UITILITY_VAL
@@ -20,7 +19,6 @@ class Node{
 public:
     int depth;
     int move;
-    int type;
     int alpha,beta;
 
     Node(int depth, int move, int alpha, int beta);

@@ -18,6 +18,5 @@ void reset() {
  */
 int play(int color) {
     int move = alpha_beta_search(color);
-    // TODO: Your code for generating a move goes here...
     return move;
 }
