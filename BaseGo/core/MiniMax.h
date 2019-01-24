@@ -10,8 +10,8 @@
 #include "Node/Node.h"
 #define MAX_DEPTH 4
 //FIXME : changeit later to inf
-#define UVAL_MAX  {10000,{10000,-10000}}
-#define UVAL_MIN  {-10000,{-10000,10000}}
+#define UVAL_MAX  10000
+#define UVAL_MIN  -10000
 
 
 

@@ -42,17 +42,20 @@ vector<Node *> Node::genChildren(int color) {
 }*/
 
 UVAL Node::utility(int playerC) {
-    int countA=0,countB = 0;
-    int op = (playerC == 1)? 2: 1;
-    for(int i = 0 ; i<board_size ; i++){
-        for(int j=0;j<board_size;j++){
-            if(BOARD(i,j)==playerC) countA++;
-            else if(BOARD(i,j) == op)countB++;
+//    int countA=0,countB = 0;
+//    int op = (playerC == 1)? 2: 1;
+//    for(int i = 0 ; i<board_size ; i++){
+//        for(int j=0;j<board_size;j++){
+//            if(BOARD(i,j)==playerC) countA++;
+//            else if(BOARD(i,j) == op)countB++;
+//
+//        }
+//    }
+    if(playerC == WHITE)
+        return white_captured - black_captured;
+    else
+        return black_captured - white_captured;
 
-        }
-    }
-
-    return {countA-countB,countLib(playerC)};
 
 }
 

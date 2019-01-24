@@ -54,11 +54,13 @@ UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta){
     if(node->depth == MAX_DEPTH) return node->utility(player);
     UVAL v = UVAL_MAX;
     for(Node* a : node->genChildren(color)){
+        int ee = (a->move) ? fastlib(a->move, color,0): 0;
+
         trymove(a->move , color, NULL , PASS_MOVE);
-        v = min(v, Max_value(a, (color == 1) ? 2 : 1 ,alpha,beta).first);
+        v = min(v, Max_value(a, OTHER_COLOR(color) ,alpha,beta).first);
         beta = min(beta , v);
+        v+=ee;
         if(beta <= alpha){
-//            cerr<<"cutOff"<<node->depth<<endl;
             popgo();
             break;
         }
@@ -76,8 +78,10 @@ pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta) {
     UVAL v = UVAL_MIN;
     MOVE move;
     for(Node* a : node->genChildren(color)){
+        int ee = (a->move) ? fastlib(a->move, color,0): 0;
         trymove(a->move , color, NULL , 0);
-        UVAL tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha,beta);
+        UVAL tmp = Min_Value(a, OTHER_COLOR(color), alpha,beta);
+        tmp += ee;
         if(tmp>v){
             v=tmp;
             move = a->move;

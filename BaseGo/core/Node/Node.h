@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-#define UITILITY_VAL std::pair<int,std::pair<int,int>>
+#define UITILITY_VAL int
 #define UVAL UITILITY_VAL
 #define MOVE int
 
