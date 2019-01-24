@@ -34,7 +34,7 @@ public:
 
 private:
     std::pair<int, int> countLib(int color);
-    void dfs(int color, int i, int j, int &libCount, bool *mark);
+    void dfs(int color, int i, int j, int &libCount, bool *mark, int &gpCount);
 
 
 
