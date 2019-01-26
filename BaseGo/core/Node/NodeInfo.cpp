@@ -9,20 +9,24 @@
 double NodeInfo::value() const {
     double ret = 0;
     ret = 10 * mycapture - 4 * opcapture;
-    ret += 1.5 * mylibcnt - oplibcnt;
-    ret += -4 * mygp + 2 * opgp;
+    ret += 3 * mylibcnt - 4 * oplibcnt;
+    ret += -9 * mygp + 2 * opgp;
+    ret += 8*myGrand;
+//    ret =   mycapture -   opcapture;
+//    ret +=  mylibcnt -   oplibcnt;
+//    ret +=  -mygp +  opgp;
+//    ret += myGrand - opGrand;
 
-    ret += myeyecnt - opeyecnt;
     return ret;
 }
 
 NodeInfo::NodeInfo(int x) {
     if (x == -1) {
-        mycapture = mylibcnt = mygp = myeyecnt = -1000;
-        opcapture = oplibcnt = opgp = opeyecnt = 1000;
+        mycapture = mylibcnt = opgp = myGrand = -1000;
+        opcapture = oplibcnt = mygp = opGrand = 1000;
     } else {
-        mycapture = mylibcnt = mygp = myeyecnt = 1000;
-        opcapture = oplibcnt = opgp = opeyecnt = -1000;
+        mycapture = mylibcnt = opgp = myGrand = 1000;
+        opcapture = oplibcnt = mygp = opGrand = -1000;
     }
 
 }

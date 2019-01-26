@@ -19,9 +19,9 @@ class Node{
 public:
     int depth;
     int move;
-    int alpha,beta;
+    int whiteLastCap;
+    int blackLastCap;
 
-    Node(int depth, int move, int alpha, int beta);
 
     Node(int depth, int move);
 
@@ -35,6 +35,8 @@ public:
 private:
     std::pair<int, int> countLib(int color);
     std::pair<int, int> countgp(int color);
+    std::pair<int, int> countGrand(int color);
+    int dfs2(int color,int i,int j, bool *mark);
     void dfs(int color, int i, int j, int &libCount, bool *mark, int &gpCount);
 
 

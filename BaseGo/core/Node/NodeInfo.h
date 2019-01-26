@@ -15,7 +15,8 @@ struct NodeInfo {
     int opgp;
     int myeyecnt;
     int opeyecnt;
-
+    int myGrand;
+    int opGrand;
     double value() const;
 
     NodeInfo(int x);

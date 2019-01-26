@@ -52,9 +52,12 @@ MOVE alpha_beta_search(int color) {
 UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta) {
     if (node->depth == MAX_DEPTH) return node->utility(player);
     UVAL v = NodeInfo(1);
+    int wc = white_captured,bc=black_captured;
     for (Node *a : node->genChildren(color)) {
         trymove(a->move, color, NULL, PASS_MOVE);
-        v = min(v, Max_value(a, (color == 1) ? 2 : 1, alpha, beta).first);
+        a->whiteLastCap = white_captured - wc;
+        a->blackLastCap = black_captured - bc;
+        v = min(v, Max_value(a, OTHER_COLOR(color), alpha, beta).first);
         beta = min(beta, v);
         if (beta <= alpha) {
 //            cerr<<"cutOff"<<node->depth<<endl;
@@ -74,9 +77,12 @@ pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha, UVAL beta) {
     }
     UVAL v = NodeInfo(-1);
     MOVE move;
+    int wc = white_captured,bc=black_captured;
     for (Node *a : node->genChildren(color)) {
         trymove(a->move, color, NULL, 0);
-        UVAL tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha, beta);
+        a->whiteLastCap = white_captured - wc;
+        a->blackLastCap = black_captured - bc;
+        UVAL tmp = Min_Value(a, OTHER_COLOR(color), alpha, beta);
         if (tmp > v) {
             v = tmp;
             move = a->move;
