@@ -8,9 +8,9 @@
 #include <vector>
 #include "board.h"
 #include <iostream>
+#include "NodeInfo.h"
 
-
-#define UITILITY_VAL std::pair<int,std::pair<int,int>>
+#define UITILITY_VAL NodeInfo
 #define UVAL UITILITY_VAL
 #define MOVE int
 
@@ -34,6 +34,7 @@ public:
 
 private:
     std::pair<int, int> countLib(int color);
+    std::pair<int, int> countgp(int color);
     void dfs(int color, int i, int j, int &libCount, bool *mark, int &gpCount);
 
 

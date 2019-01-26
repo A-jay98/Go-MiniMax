@@ -25,7 +25,7 @@ vector<Node *> Node::genChildren(int color) {
             }
         }
     }
-    Node *n = new Node(this->depth+1,PASS_MOVE);
+    Node *n = new Node(this->depth+1, PASS_MOVE);
     childs.push_back(n);
     return childs;
 
@@ -42,25 +42,85 @@ vector<Node *> Node::genChildren(int color) {
 }*/
 
 UVAL Node::utility(int playerC) {
-    int countA=0,countB = 0;
-    int op = (playerC == 1)? 2: 1;
-    for(int i = 0 ; i<board_size ; i++){
-        for(int j=0;j<board_size;j++){
-            if(BOARD(i,j)==playerC) countA++;
-            else if(BOARD(i,j) == op)countB++;
-
-        }
-    }
+//    int countA=0,countB = 0;
+//    int op = (playerC == 1)? 2: 1;
+//    for(int i = 0 ; i<board_size ; i++){
+//        for(int j=0;j<board_size;j++){
+//            if(BOARD(i,j)==playerC) countA++;
+//            else if(BOARD(i,j) == op)countB++;
+//
+//        }
+//    }
     int res;
     if(playerC == WHITE){
         res = black_captured - white_captured;
     } else
         res = white_captured - black_captured;
-    return {res,countLib(playerC)};
+
+    if(playerC==WHITE)
+    {
+        NodeInfo ret;
+        pair<int,int> p=countLib(WHITE);
+        pair<int,int> q=countgp(WHITE);
+        ret.mycapture =black_captured;
+        ret.opcapture = white_captured;
+        ret.mylibcnt= p.first;
+        ret.oplibcnt= p.second;
+        ret.mygp= q.first;
+        ret.opgp=q.second;
+        return ret;
+    }
+    else
+    {
+        NodeInfo ret;
+        pair<int,int> p=countLib(BLACK);
+        pair<int,int> q=countgp(BLACK);
+        ret.mycapture =white_captured;
+        ret.opcapture = black_captured;
+        ret.mylibcnt= p.first;
+        ret.oplibcnt= p.second;
+        ret.mygp= q.first;
+        ret.opgp=q.second;
+        return ret;
+    }
 
 }
 
 Node::Node(int depth, int move, int alpha, int beta) : depth(depth), move(move), alpha(alpha), beta(beta) {}
+
+
+
+std::pair<int,int> Node::countgp(int color) {
+    pair<int, int> bw = {0,0};
+    bool ismark[84];
+    memset(ismark,0, sizeof(ismark));
+    int libMine = 0;
+    int libOp = 0;
+    int myGp = 0;
+    int opGp = 0;
+    for(int i = 0 ; i<board_size ; i++) {
+        for (int j = 0; j < board_size; j++) {
+            if (board[POS(i, j)] == color and ismark[i*9+j]==false) {
+                dfs(color, i, j, libMine, ismark, myGp);
+                myGp++;
+            }
+        }
+    }
+
+    memset(ismark,0, sizeof(ismark));
+    color = OTHER_COLOR(color);
+    for(int i = 0 ; i<board_size ; i++) {
+        for (int j = 0; j < board_size; j++) {
+            if(board[POS(i,j)] == color and ismark[i*9+j]==false) {
+                dfs(color, i, j, libOp, ismark, opGp);
+                opGp++;
+            }
+        }
+    }
+
+    bw = {myGp, opGp};
+    return bw;
+}
 
 std::pair<int, int> Node::countLib(int color) {
     pair<int, int> bw = {0,0};
@@ -72,38 +132,34 @@ std::pair<int, int> Node::countLib(int color) {
     int opGp = 0;
     for(int i = 0 ; i<board_size ; i++) {
         for (int j = 0; j < board_size; j++) {
-            if(board[POS(i,j)] == color){
+            if (board[POS(i, j)] == color and ismark[i*9+j]==false) {
                 dfs(color, i, j, libMine, ismark, myGp);
 
             }
         }
     }
-    libMine += myGp*2;
 
     memset(ismark,0, sizeof(ismark));
     color = OTHER_COLOR(color);
     for(int i = 0 ; i<board_size ; i++) {
         for (int j = 0; j < board_size; j++) {
-            if(board[POS(i,j)] == color) {
+            if(board[POS(i,j)] == color and ismark[i*9+j]==false) {
                 dfs(color, i, j, libOp, ismark, opGp);
             }
         }
     }
 
-    libOp += opGp*2;
-
-    bw = {libMine, -libOp};
+    bw = {libMine, libOp};
     return bw;
 }
 
 void Node::dfs(int color, int i, int j, int &libCount, bool *mark, int &gpCount) {
     if(!mark[i*9+j]){
         mark[i*9+j] = true;
-         if(BOARD(i,j)== EMPTY){
+        if(BOARD(i,j)== EMPTY){
             libCount++;
-             return;
+            return;
         }
-         gpCount++;
         if(board[NORTH(POS(i,j))] == color || board[NORTH(POS(i,j))] == EMPTY)
             dfs(color, I(NORTH(POS(i, j))), J(NORTH(POS(i, j))), libCount, mark, gpCount);
         if(board[SOUTH(POS(i,j))] == color || board[SOUTH(POS(i,j))] == EMPTY)

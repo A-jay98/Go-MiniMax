@@ -8,21 +8,20 @@
 #include "Node/Node.h"
 
 
-
 using namespace std;
 
 
-
-void dumbfunc(){
-    cerr<<board_size;
+void dumbfunc() {
+    cerr << board_size;
 }
+
 int player;
 
 
-MOVE alpha_beta_search(int color){
+MOVE alpha_beta_search(int color) {
     player = color;
     Node *root = new Node(0, 0);
-    return Max_value(root,color,UVAL_MIN,UVAL_MAX).second;
+    return Max_value(root, color, NodeInfo(-1), NodeInfo(1)).second;
 
 
 }
@@ -50,14 +49,14 @@ MOVE alpha_beta_search(int color){
     return move;
 }*/
 
-UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta){
-    if(node->depth == MAX_DEPTH) return node->utility(player);
-    UVAL v = UVAL_MAX;
-    for(Node* a : node->genChildren(color)){
-        trymove(a->move , color, NULL , PASS_MOVE);
-        v = min(v, Max_value(a, (color == 1) ? 2 : 1 ,alpha,beta).first);
-        beta = min(beta , v);
-        if(beta <= alpha){
+UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta) {
+    if (node->depth == MAX_DEPTH) return node->utility(player);
+    UVAL v = NodeInfo(1);
+    for (Node *a : node->genChildren(color)) {
+        trymove(a->move, color, NULL, PASS_MOVE);
+        v = min(v, Max_value(a, (color == 1) ? 2 : 1, alpha, beta).first);
+        beta = min(beta, v);
+        if (beta <= alpha) {
 //            cerr<<"cutOff"<<node->depth<<endl;
             popgo();
             break;
@@ -68,22 +67,22 @@ UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta){
     return v;
 }
 
-pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta) {
-    if(node->depth == MAX_DEPTH) {
+pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha, UVAL beta) {
+    if (node->depth == MAX_DEPTH) {
 //        cerr<<node->depth<<"  "<<node->move;
-        return {node->utility(player),0};
+        return {node->utility(player), 0};
     }
-    UVAL v = UVAL_MIN;
+    UVAL v = NodeInfo(-1);
     MOVE move;
-    for(Node* a : node->genChildren(color)){
-        trymove(a->move , color, NULL , 0);
-        UVAL tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha,beta);
-        if(tmp>v){
-            v=tmp;
+    for (Node *a : node->genChildren(color)) {
+        trymove(a->move, color, NULL, 0);
+        UVAL tmp = Min_Value(a, (color == 2) ? 1 : 2, alpha, beta);
+        if (tmp > v) {
+            v = tmp;
             move = a->move;
         }
-        alpha = max(alpha , v);
-        if(beta <= alpha){
+        alpha = max(alpha, v);
+        if (beta <= alpha) {
 //            cerr<<"cutOff D"<<node->depth<<endl;
             popgo();
             break;
@@ -92,7 +91,7 @@ pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha , UVAL beta) {
         popgo();
     }
 
-    return {v,move};
+    return {v, move};
 }
 
 
