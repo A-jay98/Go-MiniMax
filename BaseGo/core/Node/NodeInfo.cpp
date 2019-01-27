@@ -26,6 +26,7 @@ double NodeInfo::value() const {
     if (mycapture == 0 && opcapture == 0) {
         if (mygp == 1 ) {
             ret += 100 * mylibcnt;
+            ret -= 10 * oplibcnt;
         } else if (mygp == 2 ) {
             ret += 55 * mylibcnt / 2.0;
             ret -= 5*oplibcnt;
