@@ -73,7 +73,7 @@ UVAL Min_Value(Node *node, int color, UVAL alpha, UVAL beta) {
 pair<UVAL, MOVE> Max_value(Node *node, int color, UVAL alpha, UVAL beta) {
     if (node->depth == MAX_DEPTH) {
 //        cerr<<node->depth<<"  "<<node->move;
-        return {node->utility(player), 0};
+        return {node->utility(player), node->move};
     }
     UVAL v = NodeInfo(-1);
     MOVE move;

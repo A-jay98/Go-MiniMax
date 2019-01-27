@@ -8,6 +8,7 @@
  */
 void reset() {
     // TODO: Your code for resetting your engine goes here...
+
 }
 
 /*
@@ -18,5 +19,11 @@ void reset() {
  */
 int play(int color) {
     int move = alpha_beta_search(color);
+//    for(int i=0;i<board_size;i++){
+//        for(int j=0;j<board_size;j++){
+//            std::cerr<<edge_distance(POS(i,j))<<" || ";
+//        }
+//        std::cerr<<std::endl;
+//    }
     return move;
 }

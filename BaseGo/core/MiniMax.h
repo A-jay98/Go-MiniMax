@@ -10,7 +10,6 @@
 #include "Node/Node.h"
 
 #define MAX_DEPTH 4
-//FIXME : changeit later to inf
 
 
 

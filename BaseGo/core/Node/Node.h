@@ -36,7 +36,7 @@ private:
     std::pair<int, int> countLib(int color);
     std::pair<int, int> countgp(int color);
     std::pair<int, int> countGrand(int color);
-    int dfs2(int color,int i,int j, bool *mark);
+    std::pair<int,std::pair<int,int>> dfs2(int color,int i,int j, bool *mark);
     void dfs(int color, int i, int j, int &libCount, bool *mark, int &gpCount);
 
 
